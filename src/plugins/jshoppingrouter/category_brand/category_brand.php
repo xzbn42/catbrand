@@ -8,6 +8,7 @@ class plgJshoppingRouterCategory_brand extends JPlugin
 	var $query=array();
 	var $segments=array();
 	private $brand_id;
+	private $brand_alias;
 	private $label_id;
 
 	function __construct(& $subject, $config)
@@ -32,6 +33,7 @@ class plgJshoppingRouterCategory_brand extends JPlugin
 		$brand_id=array_search(getSeoSegment(end($segments)), $brandsalias);
 		if($link["option"]=="com_jshopping" && ($link["controller"]=="category" || $link["view"]=="category") AND $brand_id AND (int)$link['category_id']>0){
 			$this->brand_id=$brand_id;
+			$this->brand_alias=getSeoSegment(end($segments));
 			$segments[0]='category';
 			$segments[1]   ='view';
 			$segments[2]   =$link['category_id'];
@@ -55,4 +57,15 @@ class plgJshoppingRouterCategory_brand extends JPlugin
 		}
 	}
 
+	public function onBeforeDisplayProductListView(&$view, &$productlist){
+		if((int)$this->brand_id>0){
+			$patterns=[];
+			$patterns[0]="/(\?manufacturer_id=".$this->brand_id."&amp;)/";
+			$patterns[1]="/(\?manufacturer_id=".$this->brand_id.")/";
+			$replacements=[];
+			$replacements[0]='/'.$this->brand_alias.'?';
+			$replacements[1]='/'.$this->brand_alias;
+			$view->pagination=preg_replace($patterns, $replacements, $view->pagination);
+		}
+	}
 }
