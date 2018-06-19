@@ -4,6 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 
 class plgJshoppingRouterCategory_brand extends JPlugin
 {
+
 	var $query=array();
 	var $segments=array();
 	private $brand_id;
@@ -28,7 +29,7 @@ class plgJshoppingRouterCategory_brand extends JPlugin
 		$menuItem=$menu->getActive();
 		$link    =$menuItem->query;
 		$brandsalias      =JSFactory::getAliasManufacturer();
-		$brand_id=array_search(end($segments), $brandsalias);
+		$brand_id=array_search(getSeoSegment(end($segments)), $brandsalias);
 		if($link["option"]=="com_jshopping" && ($link["controller"]=="category" || $link["view"]=="category") AND $brand_id AND (int)$link['category_id']>0){
 			$this->brand_id=$brand_id;
 			$segments[0]='category';
