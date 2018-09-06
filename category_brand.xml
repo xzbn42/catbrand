@@ -2,7 +2,7 @@
 <extension type="plugin" version="1.7" method="upgrade" group="jshoppingrouter">
     <name>JoomShopping URL category brand</name>
     <creationDate>April 2018</creationDate>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <author>Alexander Tashi</author>
     <authorEmail>tashimotor@gmail.com</authorEmail>
     <authorUrl></authorUrl>
