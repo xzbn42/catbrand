@@ -26,20 +26,22 @@ class plgJshoppingRouterCategory_brand extends JPlugin
 
 	function onBeforeParseRoute(&$vars, &$segments)
 	{
-		$menu    =JFactory::getApplication()->getMenu();
-		$menuItem=$menu->getActive();
-		$link    =$menuItem->query;
-		$brandsalias      =JSFactory::getAliasManufacturer();
-		$brand_id=array_search(getSeoSegment(end($segments)), $brandsalias);
-		if($link["option"]=="com_jshopping" && ($link["controller"]=="category" || $link["view"]=="category") AND $brand_id AND (int)$link['category_id']>0){
-			$this->brand_id=$brand_id;
-			$this->brand_alias=getSeoSegment(end($segments));
-			$segments[0]='category';
-			$segments[1]   ='view';
-			$segments[2]   =$link['category_id'];
-			$segments[3]   ='category_brand';
-			if((int)$link['label_id']>0){
-				$this->label_id=$link['label_id'];
+		if(count($segments)==1){
+			$menu       =JFactory::getApplication()->getMenu();
+			$menuItem   =$menu->getActive();
+			$link       =$menuItem->query;
+			$brandsalias=JSFactory::getAliasManufacturer();
+			$brand_id   =array_search(getSeoSegment(end($segments)), $brandsalias);
+			if($link["option"]=="com_jshopping" && ($link["controller"]=="category" || $link["view"]=="category") AND $brand_id AND (int) $link['category_id']>0){
+				$this->brand_id   =$brand_id;
+				$this->brand_alias=getSeoSegment(end($segments));
+				$segments[0]      ='category';
+				$segments[1]      ='view';
+				$segments[2]      =$link['category_id'];
+				$segments[3]      ='category_brand';
+				if((int) $link['label_id']>0){
+					$this->label_id=$link['label_id'];
+				}
 			}
 		}
 	}
