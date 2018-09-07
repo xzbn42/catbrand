@@ -59,7 +59,7 @@ class plgJshoppingRouterCategory_brand extends JPlugin
 		}
 	}
 
-	public function onBeforeDisplayProductListView(&$view, &$productlist){
+	public function onBeforeDisplayProductListView(&$view, &$productlist=null){
 		if((int)$this->brand_id>0){
 			$patterns=[];
 			$patterns[0]="/(\?manufacturer_id=".$this->brand_id."&amp;)/";
